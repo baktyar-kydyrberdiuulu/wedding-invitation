@@ -1,1 +1,17 @@
+:root {
+  --wine: #761d26;
+  --wine-dark: #4d1017;
+  --cream: #fbf7f0;
+  --paper: #fffdf8;
+  --ink: #362c28;
+  --muted: #857873;
+  --gold: #b89767;
+  --shadow: 0 22px 65px rgba(84, 46, 37, .17);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--cream); }
+body { margin: 0; color: var(--ink); background: var(--cream); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+::selection { background: rgba(118,29,38,.18); }
 /* You can add global styles to this file, and also import other style files */

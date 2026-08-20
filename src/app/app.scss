@@ -1,0 +1,808 @@
+:host {
+  display: block;
+}
+main {
+  width: 100%;
+  overflow: hidden;
+}
+.section-pad {
+  padding: 92px 22px;
+  position: relative;
+}
+.intro {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  perspective: 1200px;
+  background: radial-gradient(
+    circle at 50% 40%,
+    #fffdf9 0 28%,
+    #f1e6d8 70%,
+    #e2d1bf 100%
+  );
+  overflow: hidden;
+}
+.micro-copy {
+  position: absolute;
+  top: 8%;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 10px;
+  color: #8d7669;
+}
+.intro-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.34;
+  background: #fff;
+}
+.glow-a {
+  left: -100px;
+  top: -60px;
+}
+.glow-b {
+  right: -110px;
+  bottom: -70px;
+  background: #d9b89c;
+}
+.envelope-stage {
+  width: min(88vw, 390px);
+  text-align: center;
+  transform-style: preserve-3d;
+}
+.envelope {
+  position: relative;
+  aspect-ratio: 1.42;
+  width: 100%;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 30px 35px rgba(83, 47, 35, 0.24));
+}
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #eadac8;
+  border-radius: 6px;
+  border: 1px solid rgba(91, 59, 40, 0.08);
+}
+.letter-preview {
+  position: absolute;
+  z-index: 2;
+  left: 9%;
+  right: 9%;
+  top: 8%;
+  height: 84%;
+  background: #fffdf8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 1.15s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s;
+}
+.letter-monogram {
+  font:
+    54px "Great Vibes",
+    cursive;
+  color: var(--wine);
+}
+.letter-monogram span {
+  font-size: 30px;
+}
+.letter-date {
+  font-family: "Cormorant Garamond";
+  letter-spacing: 0.2em;
+  color: #9e8b7a;
+}
+.envelope-front {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+}
+.envelope-left {
+  clip-path: polygon(0 0, 55% 50%, 0 100%);
+  background: #f0e3d3;
+}
+.envelope-right {
+  clip-path: polygon(100% 0, 45% 50%, 100% 100%);
+  background: #e8d6c3;
+}
+.envelope-bottom {
+  clip-path: polygon(0 100%, 50% 43%, 100% 100%);
+  background: #f7ecdf;
+}
+.envelope-flap {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: 50% 0;
+  background: linear-gradient(165deg, #f5e8d9, #e4d1bc);
+  transition: transform 0.9s cubic-bezier(0.3, 0.7, 0.2, 1);
+  backface-visibility: hidden;
+}
+.wax-seal {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  top: 48%;
+  width: 78px;
+  height: 78px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 49% 51% 47% 53%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    #a03a3f,
+    #761d26 55%,
+    #4d1017 100%
+  );
+  box-shadow:
+    0 6px 15px rgba(73, 10, 18, 0.35),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 7px rgba(60, 0, 10, 0.1);
+  color: #f6dfc2;
+  cursor: pointer;
+  transition:
+    transform 0.5s,
+    opacity 0.45s;
+}
+.wax-seal::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(246, 223, 194, 0.65);
+  border-radius: 50%;
+}
+.wax-seal span {
+  position: relative;
+  z-index: 1;
+  font:
+    25px "Great Vibes",
+    cursive;
+}
+.wax-seal:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+.tap-hint {
+  margin: 30px 0 0;
+  color: #8b786c;
+  font: italic 17px "Cormorant Garamond";
+  animation: pulse 1.8s infinite;
+}
+.intro.is-open .envelope-flap {
+  transform: rotateX(178deg);
+  z-index: 1;
+}
+.intro.is-open .letter-preview {
+  transform: translateY(-58%) rotateX(-2deg);
+}
+.intro.is-open .wax-seal {
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+.intro.is-open .tap-hint {
+  opacity: 0;
+}
+.intro.is-open {
+  animation: introFade 0.75s ease 1.3s forwards;
+}
+.invitation {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--paper);
+  min-height: 100vh;
+  box-shadow: 0 0 90px rgba(71, 36, 24, 0.08);
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 0.7s,
+    transform 0.7s;
+}
+.invitation.ready {
+  opacity: 1;
+  transform: none;
+}
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #fffdfa, #fbf6ef);
+  overflow: hidden;
+}
+.hero .eyebrow,
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 10px;
+  color: #8d7a71;
+}
+.hero h1 {
+  font:
+    58px/1 "Great Vibes",
+    cursive;
+  color: var(--wine);
+  margin: 20px 0 14px;
+  font-weight: 400;
+}
+.hero h1 small {
+  display: block;
+  font: 30px "Cormorant Garamond";
+  margin: 6px;
+}
+.date {
+  font: 500 18px "Cormorant Garamond";
+  letter-spacing: 0.24em;
+}
+.lead {
+  max-width: 345px;
+  font: 20px/1.55 "Cormorant Garamond";
+  color: #6f615a;
+  margin-top: 35px;
+}
+.scroll-mark {
+  position: absolute;
+  bottom: 35px;
+  width: 28px;
+  height: 44px;
+  border: 1px solid #b8a79d;
+  border-radius: 20px;
+}
+.scroll-mark span {
+  display: block;
+  width: 3px;
+  height: 8px;
+  background: var(--wine);
+  border-radius: 3px;
+  margin: 8px auto;
+  animation: scrollDot 1.6s infinite;
+}
+.floral {
+  position: absolute;
+  width: 260px;
+  height: 170px;
+  pointer-events: none;
+}
+.floral-top {
+  top: -25px;
+  right: -40px;
+  transform: rotate(12deg);
+}
+.stem {
+  position: absolute;
+  width: 150px;
+  height: 1px;
+  background: #6d6e50;
+  transform-origin: left;
+}
+.s1 {
+  left: 40px;
+  top: 80px;
+  transform: rotate(-28deg);
+}
+.s2 {
+  left: 50px;
+  top: 90px;
+  transform: rotate(18deg);
+}
+.rose,
+.berry {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #b5454f,
+    var(--wine) 55%,
+    #4d1017
+  );
+}
+.rose:before,
+.rose:after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 45% 55% 50% 50%;
+  transform: rotate(45deg);
+}
+.r1 {
+  width: 60px;
+  height: 60px;
+  right: 30px;
+  top: 55px;
+}
+.r2 {
+  width: 38px;
+  height: 38px;
+  right: 92px;
+  top: 24px;
+}
+.r3 {
+  width: 33px;
+  height: 33px;
+  right: 100px;
+  top: 105px;
+}
+.berry {
+  width: 12px;
+  height: 12px;
+}
+.b1 {
+  right: 150px;
+  top: 35px;
+}
+.b2 {
+  right: 145px;
+  top: 125px;
+}
+.message {
+  text-align: center;
+  background: #fff;
+}
+.script-label {
+  font:
+    39px "Great Vibes",
+    cursive;
+  color: var(--wine);
+}
+.message p,
+.dresscode > p {
+  font: 18px/1.7 "Cormorant Garamond";
+  max-width: 380px;
+  margin: 28px auto;
+  color: #6f625c;
+}
+.heart-line {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  color: var(--wine);
+  margin-top: 36px;
+}
+.heart-line span {
+  width: 70px;
+  height: 1px;
+  background: #d8c9be;
+}
+.calendar-block {
+  text-align: center;
+  background: #faf5ee;
+}
+.section-title em {
+  display: block;
+  font: 42px "Great Vibes";
+  color: var(--wine);
+}
+.section-title strong {
+  display: block;
+  font: 86px/0.9 "Cormorant Garamond";
+  font-weight: 400;
+}
+.section-title span {
+  letter-spacing: 0.35em;
+  font-size: 11px;
+}
+.calendar {
+  max-width: 360px;
+  margin: 35px auto;
+  background: #fff;
+  padding: 24px 18px;
+  box-shadow: var(--shadow);
+  border-radius: 2px;
+}
+.week,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 9px;
+  align-items: center;
+}
+.week {
+  margin-bottom: 14px;
+  color: #9a877b;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.days span {
+  display: grid;
+  place-items: center;
+  height: 32px;
+  font: 16px "Cormorant Garamond";
+}
+.days .muted {
+  opacity: 0.25;
+}
+.chosen {
+  position: relative;
+  color: white;
+  z-index: 1;
+}
+.chosen:before {
+  content: "♥";
+  position: absolute;
+  font-size: 43px;
+  color: var(--wine);
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -54%);
+}
+.outline-btn,
+.cream-btn,
+.wine-btn {
+  border: 1px solid var(--wine);
+  background: transparent;
+  color: var(--wine);
+  padding: 14px 24px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.wine-panel {
+  background: linear-gradient(145deg, #6d1721, #4b1017);
+  color: #fff;
+  text-align: center;
+}
+.eyebrow.light {
+  color: #d9b9ae;
+}
+.place h2 {
+  font: 45px "Great Vibes";
+  font-weight: 400;
+  margin: 16px 0;
+}
+.place p {
+  font: 18px/1.7 "Cormorant Garamond";
+  color: #f0ded6;
+}
+.cream-btn {
+  border-color: #ead8cb;
+  color: #fff;
+  margin-top: 20px;
+}
+.ornament {
+  font-size: 28px;
+  color: #caa68a;
+  margin-bottom: 24px;
+}
+.section-heading {
+  text-align: center;
+}
+.section-heading span {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  font-size: 9px;
+  color: #a0897c;
+}
+.section-heading h2 {
+  font: 49px "Great Vibes";
+  font-weight: 400;
+  color: var(--wine);
+  margin: 5px 0 35px;
+}
+.timeline-section {
+  background: #fff;
+}
+.timeline {
+  max-width: 390px;
+  margin: auto;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 62px 16px 1fr;
+  gap: 14px;
+  min-height: 115px;
+}
+.time {
+  font: 22px "Cormorant Garamond";
+  color: var(--wine);
+}
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--wine);
+  margin-top: 8px;
+  position: relative;
+}
+.dot:after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  width: 1px;
+  height: 91px;
+  background: #d7c6bb;
+}
+.timeline-item:last-child .dot:after {
+  display: none;
+}
+.event h3 {
+  margin: 0 0 7px;
+  font: 26px "Cormorant Garamond";
+  font-weight: 500;
+}
+.event p {
+  margin: 0;
+  color: #81716a;
+  font: 15px/1.55 "Cormorant Garamond";
+}
+.dresscode {
+  text-align: center;
+  background: #faf5ee;
+}
+.palette {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 30px 0;
+}
+.palette i {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 4px 12px rgba(70, 30, 20, 0.12);
+}
+.fashion {
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  gap: 65px;
+  align-items: end;
+}
+.figure {
+  position: relative;
+  width: 80px;
+  height: 180px;
+}
+.figure .head {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e0c1ad;
+  left: 28px;
+  top: 0;
+}
+.dress .body {
+  position: absolute;
+  top: 26px;
+  left: 24px;
+  width: 32px;
+  height: 56px;
+  background: #7b202b;
+  border-radius: 15px 15px 5px 5px;
+}
+.dress .skirt {
+  position: absolute;
+  top: 65px;
+  left: 5px;
+  width: 70px;
+  height: 105px;
+  background: linear-gradient(90deg, #57131c, #8c2d37, #57131c);
+  clip-path: polygon(36% 0, 64% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 8px 8px;
+}
+.suit .body {
+  position: absolute;
+  top: 26px;
+  left: 17px;
+  width: 46px;
+  height: 79px;
+  background: #4d1017;
+  clip-path: polygon(0 0, 43% 0, 50% 18%, 57% 0, 100% 0, 90% 100%, 10% 100%);
+}
+.suit .legs {
+  position: absolute;
+  top: 98px;
+  left: 20px;
+  width: 40px;
+  height: 75px;
+  border-left: 17px solid #382b2a;
+  border-right: 17px solid #382b2a;
+}
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  max-width: 410px;
+  margin: 30px auto 0;
+}
+.countdown div {
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+.countdown div:last-child {
+  border: 0;
+}
+.countdown strong {
+  display: block;
+  font: 42px "Cormorant Garamond";
+  font-weight: 400;
+}
+.countdown span {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #d9b9ae;
+}
+.rsvp {
+  background: #fff;
+}
+.rsvp form {
+  max-width: 390px;
+  margin: auto;
+}
+.rsvp label,
+.rsvp legend {
+  display: block;
+  font: 13px "Montserrat";
+  color: #6c5c55;
+  margin: 22px 0 9px;
+}
+.rsvp input,
+.rsvp select,
+.rsvp textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #cfbeb3;
+  background: transparent;
+  padding: 12px 4px;
+  outline: none;
+  color: var(--ink);
+  border-radius: 0;
+}
+.rsvp textarea {
+  border: 1px solid #d8c9bf;
+  padding: 12px;
+  resize: vertical;
+}
+.rsvp fieldset {
+  border: 0;
+  padding: 0;
+  margin: 24px 0;
+}
+.radio {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 !important;
+}
+.radio input {
+  width: 17px !important;
+  accent-color: var(--wine);
+}
+.radio span {
+  font: 16px "Cormorant Garamond";
+}
+.wine-btn {
+  background: var(--wine);
+  color: #fff;
+  width: 100%;
+  margin-top: 25px;
+}
+.error {
+  color: #a02b37;
+}
+.thanks {
+  text-align: center;
+  max-width: 340px;
+  margin: auto;
+}
+.thanks > div {
+  font-size: 34px;
+  color: var(--wine);
+}
+.thanks h3 {
+  font: 42px "Great Vibes";
+  color: var(--wine);
+  margin: 10px;
+}
+.thanks p {
+  font: 17px/1.6 "Cormorant Garamond";
+}
+.thanks code {
+  font-size: 12px;
+}
+.finale {
+  text-align: center;
+  background: #faf5ee;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.final-heart {
+  font-size: 50px;
+  color: var(--wine);
+  margin-bottom: 16px;
+}
+.finale h2 {
+  font: 42px "Great Vibes";
+  color: var(--wine);
+  font-weight: 400;
+  margin: 10px;
+}
+.finale p {
+  font: 17px "Cormorant Garamond";
+  color: #7d6d65;
+}
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes scrollDot {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes introFade {
+  to {
+    min-height: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+@media (min-width: 700px) {
+  body {
+    background: #eadfd3;
+  }
+  .invitation {
+    margin: 35px auto;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .intro .envelope-stage {
+    width: 410px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-init {
+    opacity: 1;
+    transform: none;
+  }
+}
