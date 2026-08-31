@@ -18,10 +18,41 @@ export class App {
   readonly now = signal(Date.now());
 
   readonly timeline: TimelineItem[] = [
-    { time: '12:00', title: 'Сбор гостей', text: 'Welcome-зона, фотографии и лёгкие напитки.' },
-    { time: '13:30', title: 'Церемония', text: 'Самый важный и трогательный момент нашего дня.' },
-    { time: '15:00', title: 'Ужин', text: 'Праздничный вечер, тёплые слова и музыка.' },
-    { time: '17:00', title: 'Торт', text: 'Сладкая точка вечера и продолжение танцев.' }
+    {
+      time: '13:00',
+      title: 'Начало церемонии',
+      text: 'Торжественное начало нашего особенного дня.'
+    },
+    {
+      time: '13:30',
+      title: 'Праздничный обед',
+      text: 'Время вкусных блюд, общения и приятной атмосферы.'
+    },
+    {
+      time: '14:00',
+      title: 'Антракт',
+      text: 'Небольшая пауза для отдыха и фотографий.'
+    },
+    {
+      time: '14:30',
+      title: 'Тёплые пожелания',
+      text: 'Время добрых слов, поздравлений и пожеланий от наших гостей.'
+    },
+    {
+      time: '15:00',
+      title: 'Конкурсная программа',
+      text: 'Весёлые конкурсы, улыбки и хорошее настроение.'
+    },
+    {
+      time: '16:00',
+      title: 'Антракт',
+      text: 'Небольшой перерыв перед завершением праздника.'
+    },
+    {
+      time: '17:00',
+      title: 'Завершение вечера',
+      text: 'Тёплое завершение нашего праздника и слова благодарности гостям.'
+    }
   ];
 
   readonly countdown = computed(() => {
@@ -52,13 +83,46 @@ export class App {
     window.setTimeout(() => document.querySelector('#invitation')?.scrollIntoView({ behavior: 'smooth' }), 1050);
   }
 
-  submitRsvp(): void {
+  async submitRsvp(): Promise<void> {
     if (this.rsvpForm.invalid) {
       this.rsvpForm.markAllAsTouched();
       return;
     }
-    console.table(this.rsvpForm.getRawValue());
-    this.submitted.set(true);
+
+    const formValue = this.rsvpForm.getRawValue();
+    const FORM_RESPONSE_URL =
+      'https://docs.google.com/forms/d/e/1FAIpQLScPCIKF7hHVnDSouD-8m63-DAXg5hm2TUUxmpMECp7z-KY75A/formResponse';
+    const ENTRY_NAME = 'entry.926445822';
+    const ENTRY_ATTENDANCE = 'entry.2022173605';
+
+    // Google Forms akzeptiert bei Multiple-Choice nur exakt die hinterlegten Optionstexte.
+    const attendanceOptionByValue: Record<Attendance, string> = {
+      "yes": 'Да, с радостью',
+      "no": 'К сожалению, нет',
+    };
+
+    const payload = new URLSearchParams();
+    payload.set(ENTRY_NAME, formValue.name ?? '');
+    payload.set(ENTRY_ATTENDANCE, formValue.attendance ?? '');
+
+    try {
+      // mode:'no-cors' ist bei Google Forms oft nötig
+      await fetch(FORM_RESPONSE_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: payload.toString(),
+      });
+
+      // Bei no-cors kann Response nicht verlässlich gelesen werden -> als Erfolg behandeln
+      this.submitted.set(true);
+      this.rsvpForm.reset();
+    } catch (error) {
+      console.error('RSVP konnte nicht an Google Forms gesendet werden:', error);
+      // Optional: hier Toast/Fehlermeldung anzeigen
+    }
   }
 
   addToCalendar(): void {

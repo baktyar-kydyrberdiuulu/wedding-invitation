@@ -429,11 +429,11 @@ main {
 .chosen:before {
   content: "♥";
   position: absolute;
-  font-size: 43px;
+  font-size: 50px;
   color: var(--wine);
   z-index: -1;
-  top: 50%;
-  left: 50%;
+  top: 56%;
+  left: 51%;
   transform: translate(-50%, -54%);
 }
 .outline-btn,

@@ -30,7 +30,8 @@
       <div class="eyebrow" appReveal>save the date</div>
       <h1 appReveal>Baktyiar <small>&</small> Aigerim</h1>
       <p class="date" appReveal>14 · 10 · 2026</p>
-      <p class="lead" appReveal>Мы создаём семью и хотим, чтобы в этот день рядом были самые близкие.</p>
+      <p class="lead" appReveal>«Мы сотворили вас парами»<br> (78:8)</p>
+<!--      <p class="lead" appReveal>Мы создаём семью и хотим, чтобы в этот день рядом были самые близкие.</p>-->
       <div class="scroll-mark" aria-hidden="true"><span></span></div>
     </section>
 
@@ -61,9 +62,9 @@
     <section class="place section-pad wine-panel">
       <div class="ornament" aria-hidden="true">✦</div>
       <div class="eyebrow light" appReveal>место проведения</div>
-      <h2 appReveal>Garden Residence</h2>
-      <p appReveal>г. Бишкек<br>ул. Примерная, 20</p>
-      <a class="cream-btn" href="https://maps.google.com/?q=Bishkek" target="_blank" rel="noopener" appReveal>Открыть карту</a>
+      <h2 appReveal>Veslo</h2>
+      <p appReveal>г. Бишкек<br>Объездная дорога, 2а </p>
+      <a class="cream-btn" href="https://go.2gis.com/AcSCm" target="_blank" rel="noopener" appReveal>Открыть карту</a>
     </section>
 
     <section class="timeline-section section-pad">
@@ -80,11 +81,8 @@
     </section>
 
     <section class="dresscode section-pad">
-      <div class="section-heading" appReveal><span>цветовая палитра</span><h2>Dress code</h2></div>
-      <p appReveal>Будем благодарны, если ваши образы поддержат палитру нашего праздника.</p>
-      <div class="palette" appReveal aria-label="Цветовая палитра">
-        <i style="--c:#51141b"></i><i style="--c:#7c2630"></i><i style="--c:#a66368"></i><i style="--c:#ccb6a0"></i><i style="--c:#efe7dc"></i>
-      </div>
+      <div class="section-heading" appReveal><h2>Dress code</h2></div>
+      <p appReveal>Будем рады, если вы поддержите стиль нашего праздника, выбрав классические и элегантные образы: костюмы и вечерние платья.</p>
       <div class="fashion" appReveal>
         <div class="figure dress"><span class="head"></span><span class="body"></span><span class="skirt"></span></div>
         <div class="figure suit"><span class="head"></span><span class="body"></span><span class="legs"></span></div>
@@ -102,17 +100,15 @@
     </section>
 
     <section class="rsvp section-pad">
-      <div class="section-heading" appReveal><span>пожалуйста, ответьте</span><h2>RSVP</h2></div>
+      <div class="section-heading" appReveal><span>пожалуйста, ответьте ваше присутствие <br> до 10 сентября</span><h2>RSVP</h2></div>
       @if (!submitted()) {
         <form [formGroup]="rsvpForm" (ngSubmit)="submitRsvp()" appReveal>
           <label>Ваше имя<input formControlName="name" placeholder="Имя и фамилия"></label>
           @if (rsvpForm.controls.name.touched && rsvpForm.controls.name.invalid) { <small class="error">Введите имя</small> }
           <fieldset><legend>Вы сможете присутствовать?</legend>
-            <label class="radio"><input type="radio" formControlName="attendance" value="yes"><span>Да, с радостью</span></label>
-            <label class="radio"><input type="radio" formControlName="attendance" value="no"><span>К сожалению, нет</span></label>
+            <label class="radio"><input type="radio" formControlName="attendance" value=true><span>Да, с радостью</span></label>
+            <label class="radio"><input type="radio" formControlName="attendance" value=false><span>К сожалению, нет</span></label>
           </fieldset>
-          <label>Количество гостей<select formControlName="guests"><option [ngValue]="1">1</option><option [ngValue]="2">2</option><option [ngValue]="3">3</option><option [ngValue]="4">4</option><option [ngValue]="5">5</option></select></label>
-          <label>Комментарий<textarea formControlName="message" rows="3" placeholder="Аллергии, пожелания или сообщение для нас"></textarea></label>
           <button class="wine-btn" type="submit">Отправить ответ</button>
         </form>
       } @else {
@@ -123,7 +119,7 @@
     <footer class="finale section-pad">
       <div class="final-heart">♡</div>
       <div class="script-label">С любовью,</div>
-      <h2>Александр & София</h2>
+      <h2>Baktyiar & Aigerim</h2>
       <p>До встречи на нашей свадьбе!</p>
     </footer>
   </article>
