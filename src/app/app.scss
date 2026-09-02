@@ -229,7 +229,7 @@ main {
   font:
     58px/1 "Great Vibes",
     cursive;
-  color: var(--wine);
+  color: var(--wine-dark);
   margin: 20px 0 14px;
   font-weight: 400;
 }
@@ -248,23 +248,7 @@ main {
   color: #6f615a;
   margin-top: 35px;
 }
-.scroll-mark {
-  position: absolute;
-  bottom: 35px;
-  width: 28px;
-  height: 44px;
-  border: 1px solid #b8a79d;
-  border-radius: 20px;
-}
-.scroll-mark span {
-  display: block;
-  width: 3px;
-  height: 8px;
-  background: var(--wine);
-  border-radius: 3px;
-  margin: 8px auto;
-  animation: scrollDot 1.6s infinite;
-}
+
 .floral {
   position: absolute;
   width: 260px;
@@ -300,7 +284,7 @@ main {
   background: radial-gradient(
     circle at 35% 35%,
     #b5454f,
-    var(--wine) 55%,
+    var(--wine-dark) 55%,
     #4d1017
   );
 }
@@ -365,7 +349,7 @@ main {
   gap: 16px;
   align-items: center;
   justify-content: center;
-  color: var(--wine);
+  color: var(--wine-dark);
   margin-top: 36px;
 }
 .heart-line span {
@@ -380,7 +364,7 @@ main {
 .section-title em {
   display: block;
   font: 42px "Great Vibes";
-  color: var(--wine);
+  color: var(--wine-dark);
 }
 .section-title strong {
   display: block;

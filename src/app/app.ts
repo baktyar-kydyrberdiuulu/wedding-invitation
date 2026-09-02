@@ -80,7 +80,7 @@ export class App {
 
   openInvitation(): void {
     this.opened.set(true);
-    window.setTimeout(() => document.querySelector('#invitation')?.scrollIntoView({ behavior: 'smooth' }), 1050);
+    // window.setTimeout(() => document.querySelector('#invitation')?.scrollIntoView({ behavior: 'smooth' }), 2000);
   }
 
   async submitRsvp(): Promise<void> {
@@ -103,7 +103,7 @@ export class App {
 
     const payload = new URLSearchParams();
     payload.set(ENTRY_NAME, formValue.name ?? '');
-    payload.set(ENTRY_ATTENDANCE, formValue.attendance ?? '');
+    payload.set(ENTRY_ATTENDANCE, attendanceOptionByValue[formValue.attendance] ?? '');
 
     try {
       // mode:'no-cors' ist bei Google Forms oft nötig
