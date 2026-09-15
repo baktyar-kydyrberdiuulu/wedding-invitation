@@ -9,7 +9,7 @@ interface TimelineItem { time: string; title: string; text: string; }
   selector: 'app-root',
   imports: [RevealDirective, ReactiveFormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   readonly opened = signal(false);
@@ -19,40 +19,55 @@ export class App {
 
   readonly timeline: TimelineItem[] = [
     {
-      time: '13:00',
-      title: 'Начало церемонии',
-      text: 'Торжественное начало нашего особенного дня.'
-    },
-    {
-      time: '13:30',
-      title: 'Праздничный обед',
-      text: 'Время вкусных блюд, общения и приятной атмосферы.'
-    },
-    {
-      time: '14:00',
-      title: 'Антракт',
-      text: 'Небольшая пауза для отдыха и фотографий.'
-    },
-    {
-      time: '14:30',
-      title: 'Тёплые пожелания',
-      text: 'Время добрых слов, поздравлений и пожеланий от наших гостей.'
-    },
-    {
-      time: '15:00',
-      title: 'Конкурсная программа',
-      text: 'Весёлые конкурсы, улыбки и хорошее настроение.'
-    },
-    {
       time: '16:00',
-      title: 'Антракт',
-      text: 'Небольшой перерыв перед завершением праздника.'
+      title: 'Начало церемонии',
+      text: 'Торжественное начало нашего особенного дня.',
+    },
+    {
+      time: '16:30',
+      title: 'Поздравления и фотографии',
+      text: 'Время для поздравлений, памятных фотографий и тёплых слов.',
     },
     {
       time: '17:00',
+      title: 'Праздничный ужин',
+      text: 'Время вкусных блюд, общения и приятной праздничной атмосферы.',
+    },
+    {
+      time: '18:00',
+      title: 'Тёплые пожелания',
+      text: 'Поздравления, добрые слова и пожелания от наших родных и друзей.',
+    },
+    {
+      time: '18:30',
+      title: 'Развлекательная программа',
+      text: 'Весёлые конкурсы, музыка, улыбки и хорошее настроение.',
+    },
+    {
+      time: '19:30',
+      title: 'Антракт',
+      text: 'Небольшая пауза для отдыха, общения и фотографий.',
+    },
+    {
+      time: '20:00',
+      title: 'Продолжение праздника',
+      text: 'Танцы, музыка и праздничная программа продолжаются.',
+    },
+    {
+      time: '21:00',
+      title: 'Свадебный торт',
+      text: 'Один из самых сладких и красивых моментов нашего вечера.',
+    },
+    {
+      time: '21:30',
+      title: 'Финальная часть',
+      text: 'Последние танцы, фотографии и тёплые моменты этого особенного дня.',
+    },
+    {
+      time: '22:00',
       title: 'Завершение вечера',
-      text: 'Тёплое завершение нашего праздника и слова благодарности гостям.'
-    }
+      text: 'Тёплое завершение нашего праздника и слова благодарности всем гостям.',
+    },
   ];
 
   readonly countdown = computed(() => {
@@ -65,10 +80,16 @@ export class App {
   });
 
   readonly rsvpForm = new FormGroup({
-    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
+    name: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(2)],
+    }),
     attendance: new FormControl<Attendance>('yes', { nonNullable: true }),
-    guests: new FormControl(1, { nonNullable: true, validators: [Validators.min(1), Validators.max(5)] }),
-    message: new FormControl('', { nonNullable: true })
+    guests: new FormControl(1, {
+      nonNullable: true,
+      validators: [Validators.min(1), Validators.max(5)],
+    }),
+    message: new FormControl('', { nonNullable: true }),
   });
 
   constructor() {
@@ -97,8 +118,8 @@ export class App {
 
     // Google Forms akzeptiert bei Multiple-Choice nur exakt die hinterlegten Optionstexte.
     const attendanceOptionByValue: Record<Attendance, string> = {
-      "yes": 'Да, с радостью',
-      "no": 'К сожалению, нет',
+      yes: 'Да, с радостью',
+      no: 'К сожалению, нет',
     };
 
     const payload = new URLSearchParams();
