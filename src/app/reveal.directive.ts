@@ -1,23 +1,29 @@
-import { afterNextRender, Directive, ElementRef, inject, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnDestroy } from '@angular/core';
 
-@Directive({ selector: '[appReveal]' })
+@Directive({ selector: '[appReveal]', standalone: true })
 export class RevealDirective implements OnDestroy {
-  private readonly el = inject(ElementRef<HTMLElement>);
-  private readonly renderer = inject(Renderer2);
+  private readonly element = inject(ElementRef<HTMLElement>);
   private observer?: IntersectionObserver;
 
-  constructor() {
-    this.renderer.addClass(this.el.nativeElement, 'reveal-init');
-    afterNextRender(() => {
-      this.observer = new IntersectionObserver(([entry]) => {
-        if (entry?.isIntersecting) {
-          this.renderer.addClass(this.el.nativeElement, 'reveal-visible');
-          this.observer?.disconnect();
+  ngAfterViewInit(): void {
+    const node = this.element.nativeElement;
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    node.classList.add('reveal-init');
+    this.observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add('reveal-visible');
+          this.observer?.unobserve(node);
         }
-      }, { threshold: .14, rootMargin: '0px 0px -6% 0px' });
-      this.observer.observe(this.el.nativeElement);
-    });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px 32px 0px' },
+    );
+    this.observer.observe(node);
   }
 
-  ngOnDestroy(): void { this.observer?.disconnect(); }
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 }

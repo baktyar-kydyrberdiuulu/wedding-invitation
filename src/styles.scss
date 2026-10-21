@@ -1,17 +1,10 @@
-:root {
-  --wine: #6f615a;
-  --wine-dark: #4d1017;
-  --cream: #fbf7f0;
-  --paper: #fffdf8;
-  --ink: #362c28;
-  --muted: #857873;
-  --gold: #b89767;
-  --shadow: 0 22px 65px rgba(84, 46, 37, .17);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap');
+
+html { scroll-behavior: smooth; }
+body {
+  padding: 0;
+  margin: 0;
+  background: #e7e9dd;
+  -webkit-font-smoothing: antialiased;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--cream); }
-body { margin: 0; color: var(--ink); background: var(--cream); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
-button, input, select, textarea { font: inherit; }
-button { -webkit-tap-highlight-color: transparent; }
-::selection { background: rgba(118,29,38,.18); }
-/* You can add global styles to this file, and also import other style files */
+body.wedding-locked { overflow: hidden; }

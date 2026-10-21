@@ -1,127 +1,192 @@
-<main>
-  <section class="intro" [class.is-open]="opened()" aria-label="Открыть приглашение">
-    <div class="intro-glow glow-a"></div><div class="intro-glow glow-b"></div>
-    <div class="micro-copy">приглашение на свадьбу</div>
+<main class="wedding-page">
+  <audio #musicPlayer src="assets/ozgocho-kun.mp3" preload="none" loop
+         (play)="musicPlaying.set(true)" (pause)="musicPlaying.set(false)"></audio>
 
-    <div class="envelope-stage">
-      <div class="envelope">
-        <div class="letter-preview">
-          <div class="letter-monogram">B <span>&</span> A</div>
-          <div class="letter-date">15 · 10 · 2026</div>
-        </div>
-        <div class="envelope-back"></div>
-        <div class="envelope-flap"></div>
-        <div class="envelope-front envelope-left"></div>
-        <div class="envelope-front envelope-right"></div>
-        <div class="envelope-front envelope-bottom"></div>
-        <button class="wax-seal" type="button" (click)="openInvitation()" [disabled]="opened()" aria-label="Открыть приглашение">
-          <span>B&A</span>
+  <!-- Reference-style interactive opening cover -->
+  <section class="intro" [class.is-open]="opened()" aria-label="Тойго чакыруу">
+    <div class="cover-noise" aria-hidden="true"></div>
+    <img class="cover-garland" [src]="images.garland" alt="" aria-hidden="true" />
+    <div class="cover-content">
+      <div class="cover-monogram" aria-hidden="true">С <span>✦</span> А</div>
+      <p class="cover-kicker">Сиз чакырылдыңыз</p>
+      <div class="cover-line"></div>
+      <p class="cover-invitation">Чакыруу</p>
+      <h1>Сыргабек <span>&amp;</span> Айназик</h1>
+      <p class="cover-date">05 ноябрь 2026</p>
+      <div class="cover-actions">
+        <button type="button" class="primary-button" (click)="openInvitation(true)" [disabled]="opened()">
+          <span aria-hidden="true">♫</span> Ачуу үчүн басыңыз
+        </button>
+        <button type="button" class="link-button" (click)="openInvitation(false)" [disabled]="opened()">
+          Үнсүз ачуу
         </button>
       </div>
-      <p class="tap-hint">Нажмите на печать</p>
     </div>
+    <img class="cover-hands" [src]="images.hands" alt="" aria-hidden="true" />
   </section>
 
-  <article id="invitation" class="invitation" [class.ready]="opened()">
+  <article id="invitation" class="invitation" [class.ready]="opened()" [attr.aria-hidden]="!opened()">
+    <!-- Names and romantic opening -->
     <section class="hero section-pad">
-      <div class="floral floral-top" aria-hidden="true">
-        <span class="stem s1"></span><span class="stem s2"></span><i class="rose r1"></i><i class="rose r2"></i><i class="rose r3"></i><i class="berry b1"></i><i class="berry b2"></i>
-      </div>
-      <div class="eyebrow" appReveal>save the date</div>
-      <h1 appReveal>Baktyiar <small>&</small> Aigerim</h1>
-      <p class="date" appReveal>15 · 10 · 2026</p>
-      <p class="lead" appReveal>«Мы сотворили вас парами»<br> (78:8)</p>
-      <div class="heart-line" appReveal><span></span>💌<span></span></div>
-
+      <img class="garland garland-top" [src]="images.garland" alt="" aria-hidden="true" />
+      <p class="tiny-label" appReveal>ҮЙЛӨНҮҮ ҮЛПӨТҮ</p>
+      <div class="hero-initials" aria-hidden="true" appReveal>С <span>✦</span> А</div>
+      <div class="thin-divider" appReveal></div>
+      <h1 appReveal>Сыргабек <small>&amp;</small> Айназик</h1>
+      <p class="hero-date" appReveal>05 · 11 · 2026</p>
+      <img class="hero-hands" [src]="images.hands" alt="Кол кармашкан жаш жубайлар" appReveal />
+      <button class="music-text-button" type="button" (click)="toggleMusic()" appReveal>
+        <span aria-hidden="true">♫</span>
+        {{ musicPlaying() ? 'Музыканы токтотуу' : 'Музыка менен көрүү' }}
+      </button>
+      <div class="scroll-indicator" aria-hidden="true">↓</div>
     </section>
 
-    <section class="message section-pad">
-      <div class="script-label" appReveal>Дорогие родные и друзья!</div>
-      <p appReveal>Совсем скоро состоится день, которого мы очень ждём. Приглашаем вас разделить с нами радость, эмоции и самые красивые моменты нашей свадьбы.</p>
-      <div class="heart-line" appReveal><span></span>♥<span></span></div>
+    <!-- Original order and wording are adapted into Kyrgyz -->
+    <section class="invitation-message section-pad">
+      <img class="doves" [src]="images.doves" alt="" aria-hidden="true" loading="lazy" appReveal />
+      <h2 class="script-title" appReveal>Урматтуу коногубуз!</h2>
+      <p class="message-overline" appReveal>Балдарыбыз</p>
+      <h3 class="couple-heading" appReveal>Сыргабек <span>менен</span> Айназиктин</h3>
+      <p class="message-text" appReveal>
+        үйлөнүү үлпөт тоюна арналган салтанаттуу кечеге
+        Сизди чын жүрөктөн чакырабыз.
+      </p>
+      <p class="message-text" appReveal>
+        Ак батаңыз менен кубанычыбызды бөлүшүп,
+        тоюбуздун кадырлуу коногу болуңуз!
+      </p>
+      <img class="couple-illustration" [src]="images.couple" alt="Үйлөнүү үлпөтүнүн сүрөтү" loading="lazy" appReveal />
     </section>
 
-    <section class="calendar-block section-pad">
-      <div class="section-title" appReveal><em>Октябрь</em><strong>15</strong><span>2026</span></div>
-      <div class="calendar" appReveal>
-        <div class="week"><b>ПН</b><b>ВТ</b><b>СР</b><b>ЧТ</b><b>ПТ</b><b>СБ</b><b>ВС</b></div>
-        <div class="days">
-          <span class="muted">28</span><span class="muted">29</span><span class="muted">30</span><span>1</span><span>2</span><span>3</span><span>4</span>
-          <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
-          <span>12</span><span>13</span><span>14</span><span class="chosen">15</span><span>16</span><span>17</span><span >18</span>
-          <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
-          <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span class="muted">1</span>
-          <span class="muted">2</span>
-          <span class="muted">3</span><span class="muted">4</span><span class="muted">5</span>
-          <span class="muted">6</span><span class="muted">7</span><span class="muted">8</span>
+    <!-- Calendar and precise start/end time -->
+    <section class="calendar-section section-pad">
+      <img class="soft-garland" [src]="images.garland" alt="" aria-hidden="true" loading="lazy" />
+      <p class="tiny-label" appReveal>ТОЙ КҮНҮ</p>
+      <h2 class="calendar-title" appReveal>Ноябрь <span>2026</span></h2>
+      <div class="calendar-card" appReveal>
+        <div class="week-row">
+          @for (weekday of weekDays; track weekday) {
+            <span>{{ weekday }}</span>
+          }
+        </div>
+        <div class="day-grid">
+          @for (day of calendarDays; track $index) {
+            <span [class.empty-day]="day === null" [class.selected-day]="day === 5">
+              {{ day ?? '' }}
+            </span>
+          }
         </div>
       </div>
-      <button class="outline-btn" type="button" (click)="addToCalendar()" appReveal>Добавить в календарь</button>
-    </section>
-
-    <section class="place section-pad wine-panel">
-      <div class="ornament" aria-hidden="true">✦</div>
-      <div class="eyebrow light" appReveal>место проведения</div>
-      <h2 appReveal>Restaurant Ular</h2>
-      <p appReveal>г. Кара-Балта<br>Жайыл Баатыр 20 </p>
-      <a class="cream-btn" href="https://2gis.kg/kara-balta/search/%D0%96%D0%B0%D0%B9%D1%8B%D0%BB%20%D0%91%D0%B0%D0%B0%D1%82%D1%8B%D1%80%2020%2C%20%D0%9A%D0%B0%D1%80%D0%B0-%D0%91%D0%B0%D0%BB%D1%82%D0%B0/firm/70000001063922673?m=73.85491%2C42.826563%2F18"
-         target="_blank" rel="noopener" appReveal>Открыть карту</a>
-    </section>
-
-    <section class="timeline-section section-pad">
-      <div class="section-heading" appReveal><span>наш</span><h2>Тайминг</h2></div>
-      <div class="timeline">
-        @for (item of timeline; track item.time) {
-          <div class="timeline-item" appReveal>
-            <div class="time">{{ item.time }}</div>
-            <div class="dot"></div>
-            <div class="event"><h3>{{ item.title }}</h3><p>{{ item.text }}</p></div>
-          </div>
-        }
+      <div class="event-day" appReveal>
+        <span class="event-weekday">Бейшемби</span>
+        <strong>05 <small>ноябрь</small></strong>
+        <span class="event-hour">16:00 – 22:00</span>
+        <p>Тойдун башталышы — 16:00</p>
+      </div>
+      <div class="calendar-actions" appReveal>
+        <button type="button" class="outline-button" (click)="addToCalendar()">Календарга кошуу</button>
+        <button type="button" class="subtle-button" (click)="downloadCalendarFile()">iPhone / .ics</button>
       </div>
     </section>
 
-    <section class="dresscode section-pad">
-      <div class="section-heading" appReveal><h2>Dress code</h2></div>
-      <p appReveal>Будем рады, если вы поддержите стиль нашего праздника, выбрав классические и элегантные образы: костюмы и вечерние платья.</p>
-      <div class="fashion" appReveal>
-        <div class="figure dress"><span class="head"></span><span class="body"></span><span class="skirt"></span></div>
-        <div class="figure suit"><span class="head"></span><span class="body"></span><span class="legs"></span></div>
+    <!-- Venue -->
+    <section class="venue-section section-pad">
+      <img class="chandelier" [src]="images.chandelier" alt="" aria-hidden="true" loading="lazy" />
+      <p class="tiny-label" appReveal>БИЗДИН МАЙРАМ</p>
+      <h2 class="script-title" appReveal>Той өтүүчү жай</h2>
+      <div class="venue-photo-wrap" appReveal>
+        <img class="venue-photo" [src]="images.table" alt="Майрамдык жасалгаланган дасторкон" loading="lazy" />
+      </div>
+      <p class="venue-caption" appReveal>Гүлчө шаарындагы ресторан</p>
+      <h3 appReveal>Ак-Бата <span>рестораны</span></h3>
+      <p class="venue-address" appReveal>Гүлчө шаары, Кыргызстан</p>
+      <a [href]="mapUrl" target="_blank" rel="noopener noreferrer" class="primary-button venue-button" appReveal>
+        Картадан көрүү ↗
+      </a>
+    </section>
+
+    <!-- Countdown -->
+    <section class="countdown-section section-pad">
+      <p class="tiny-label" appReveal>ЭСТЕН КЕТКИС КҮНГӨ</p>
+      <h2 class="script-title" appReveal>Тойго чейин</h2>
+      <div class="countdown" appReveal aria-label="Тойго чейин калган убакыт">
+        <div><strong>{{ countdown().d }}</strong><span>күн</span></div>
+        <b>:</b>
+        <div><strong>{{ countdown().h.toString().padStart(2, '0') }}</strong><span>саат</span></div>
+        <b>:</b>
+        <div><strong>{{ countdown().m.toString().padStart(2, '0') }}</strong><span>мүнөт</span></div>
+        <b>:</b>
+        <div><strong>{{ countdown().s.toString().padStart(2, '0') }}</strong><span>секунд</span></div>
       </div>
     </section>
 
-    <section class="countdown-panel section-pad wine-panel">
-      <div class="eyebrow light" appReveal>до нашей встречи</div>
-      <div class="countdown" appReveal>
-        <div><strong>{{ countdown().d }}</strong><span>дней</span></div>
-        <div><strong>{{ countdown().h }}</strong><span>часов</span></div>
-        <div><strong>{{ countdown().m }}</strong><span>минут</span></div>
-        <div><strong>{{ countdown().s }}</strong><span>секунд</span></div>
-      </div>
-    </section>
-
-    <section class="rsvp section-pad">
-      <div class="section-heading" appReveal><span>пожалуйста, ответьте ваше присутствие <br> до 30 сентября</span><h2>RSVP</h2></div>
+    <!-- Google Forms RSVP -->
+    <section class="rsvp-section section-pad">
+      <h2 class="script-title" appReveal>Сурамжылоо</h2>
+      <p class="rsvp-description" appReveal>Тойго катышарыңызды билдирип коюңуз:</p>
       @if (!submitted()) {
         <form [formGroup]="rsvpForm" (ngSubmit)="submitRsvp()" appReveal>
-          <label>Ваше имя<input formControlName="name" placeholder="Имя и фамилия"></label>
-          @if (rsvpForm.controls.name.touched && rsvpForm.controls.name.invalid) { <small class="error">Введите имя</small> }
-          <fieldset><legend>Вы сможете присутствовать?</legend>
-            <label class="radio"><input type="radio" formControlName="attendance" value="yes"><span>Да, с радостью</span></label>
-            <label class="radio"><input type="radio" formControlName="attendance" value="no"><span>К сожалению, нет</span></label>
+          <label class="field-label" for="guestName">Аты-жөнүңүз</label>
+          <input id="guestName" type="text" formControlName="name"
+                 placeholder="Аты-жөнүңүз" autocomplete="name" maxlength="150" />
+          <p class="field-hint">Жубайыңыз менен келсеңиз, экөөңүздүн тең аты-жөнүңүздү жазыңыз.</p>
+          @if (rsvpForm.controls.name.touched && rsvpForm.controls.name.invalid) {
+            <p class="field-error" role="alert">Аты-жөнүңүздү жазыңыз (кеминде 2 тамга).</p>
+          }
+          <fieldset>
+            <legend>Тойго катышарыңызды билдирип коюңуз:</legend>
+            <label class="radio-option">
+              <input type="radio" formControlName="attendance" value="yes" />
+              <span>Албетте, келем</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="attendance" value="withPartner" />
+              <span>Жубайым менен келем</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="attendance" value="no" />
+              <span>Келе албайм</span>
+            </label>
           </fieldset>
-          <button class="wine-btn" type="submit">Отправить ответ</button>
+          @if (submitError()) {
+            <p class="field-error" role="alert">Жооп жөнөтүлгөн жок. Кайра аракет кылыңыз.</p>
+          }
+          <button type="submit" class="primary-button submit-button" [disabled]="submitting()">
+            {{ submitting() ? 'Жөнөтүлүүдө…' : 'Жоопту жөнөтүү' }}
+          </button>
         </form>
       } @else {
-        <div class="thanks" appReveal><div>♥</div><h3>Спасибо!</h3><p>Ваш ответ успешно сохранён. Будем рады видеть вас на нашей свадьбе!</p></div>
+        <div class="thanks-message" role="status" appReveal>
+          <span aria-hidden="true">♡</span>
+          <h3>Рахмат!</h3>
+          <p>Жообуңуз жөнөтүлдү. Сиз менен жолугушууну чыдамсыздык менен күтөбүз!</p>
+        </div>
       }
+      <p class="form-note">Жооп жөнөтүү үчүн интернет байланышы керек.</p>
     </section>
 
+    <!-- Footer / hosts -->
     <footer class="finale section-pad">
-      <div class="final-heart">♡</div>
-      <div class="script-label">С любовью,</div>
-      <h2>Baktyiar & Aigerim</h2>
-      <p>До встречи на нашей свадьбе!</p>
+      <img class="final-garland" [src]="images.garland" alt="" aria-hidden="true" loading="lazy" />
+      <img class="final-rings" [src]="images.rings" alt="Нике шакектери" loading="lazy" appReveal />
+      <h2 class="script-title" appReveal>Сизди чыдамсыздык менен күтөбүз!</h2>
+      <p appReveal>Урматтоо менен, той ээлери:</p>
+      <h3 appReveal>Жумаалы <span>жана</span> Чынаргүл</h3>
+      <div class="footer-divider"></div>
+      <p class="footer-names">Сыргабак &amp; Айназик · 05.11.2026</p>
     </footer>
   </article>
+
+  @if (opened()) {
+    <button class="music-fab" type="button" (click)="toggleMusic()"
+            [attr.aria-label]="musicPlaying() ? 'Музыканы токтотуу' : 'Музыканы күйгүзүү'"
+            [attr.aria-pressed]="musicPlaying()" title="Музыка">
+      <span aria-hidden="true">{{ musicPlaying() ? '♫' : '♪' }}</span>
+      <small>{{ musicPlaying() ? 'ON' : 'OFF' }}</small>
+    </button>
+    @if (musicError()) {
+      <p class="music-error" role="status">Музыка ойнотулган жок. Кайра басып көрүңүз.</p>
+    }
+  }
 </main>
